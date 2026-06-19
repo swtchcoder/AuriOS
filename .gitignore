@@ -16,6 +16,7 @@ iso/
 *.swp
 *.swo
 *~
+compile_commands.json
 
 # OS specific
 .DS_Store

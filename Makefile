@@ -61,19 +61,22 @@ help:
 	@echo "======================= AuriOS Makefile ======================="
 	@echo ""
 	@echo "Available targets:"
-	@echo "  make all            - Build everything"
-	@echo "  make iso            - Build OS binary and create bootable ISO"
-	@echo "  make iso-debug      - Build bootable ISO with Test Mode enabled (serial output)"
-	@echo "  make run            - Build and run in QEMU (x86_64)"
-	@echo "  make run32          - Build and run in QEMU (i386)"
-	@echo "  make run-mac        - Build and run on macOS (direct boot)"
-	@echo "  make clean          - Remove all build artifacts"
+	@echo "  make all                   - Build everything"
+	@echo "  make iso                   - Build OS binary and create bootable ISO"
+	@echo "  make iso-debug             - Build bootable ISO with Test Mode enabled (serial output)"
+	@echo "  make run                   - Build and run in QEMU (x86_64)"
+	@echo "  make run32                 - Build and run in QEMU (i386)"
+	@echo "  make run-mac               - Build and run on macOS (direct boot)"
+	@echo "  make clean                 - Remove all build artifacts"
 	@echo ""
 	@echo "Installation (requires sudo):"
-	@echo "  make install-fedora - Install dependencies for Fedora"
-	@echo "  make install-arch   - Install dependencies for Arch Linux"
-	@echo "  make install-debian - Install dependencies for Debian/Ubuntu"
-	@echo "  make install-mac    - Install dependencies for Mac (Brew required)"
+	@echo "  make install-fedora        - Install dependencies for Fedora"
+	@echo "  make install-arch          - Install dependencies for Arch Linux"
+	@echo "  make install-debian        - Install dependencies for Debian/Ubuntu"
+	@echo "  make install-mac           - Install dependencies for Mac (Brew required)"
+	@echo ""
+	@echo "Contributing (Optional):"
+	@echo "  make compile_commands.json - Generates compile_commands.json for LSPs"
 	@echo ""
 	@echo "Zig Toolchain (Optional):"
 	@echo "  make run* USE_ZIG=1 - Compile with Zig toolchain"
@@ -119,6 +122,9 @@ $(KERNEL_BIN): $(OBJS) | $(OUTPUT_DIR)
 
 # Build all
 all: $(KERNEL_BIN)
+
+compile_commands.json:
+	@bear -- $(MAKE) clean all
 
 # Create bootable ISO
 iso: $(KERNEL_BIN)
@@ -168,19 +174,19 @@ clean:
 # Installation targets
 install-fedora:
 	@echo "[!] Installing dependencies for Fedora"
-	sudo dnf install gcc gcc-c++ binutils make wget tar texinfo gmp-devel mpfr-devel libmpc-devel nasm qemu-system-x86 grub2-tools-extra mtools xorriso clang-tools-extra zig
+	sudo dnf install gcc gcc-c++ binutils make wget tar texinfo gmp-devel mpfr-devel libmpc-devel nasm qemu-system-x86 grub2-tools-extra mtools xorriso clang-tools-extra zig bear
 	bash docs/install_scripts/install.sh
 
 install-arch:
 	@echo "[!] Installing dependencies for Arch Linux"
-	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 qemu-desktop grub mtools xorriso clang zig
+	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 qemu-desktop grub mtools xorriso clang zig bear
 	yay -S i686-elf-binutils-bin i686-elf-gcc-bin
 
 install-debian:
 	@echo "[!] Installing dependencies for Debian/Ubuntu"
-	sudo apt install gcc g++ binutils make wget tar mtools xorriso nasm qemu-system-x86 grub-pc-bin clang-format zig
+	sudo apt install gcc g++ binutils make wget tar mtools xorriso nasm qemu-system-x86 grub-pc-bin clang-format zig bear
 	bash docs/install_scripts/install.sh
 # need work
 install-mac:
 	@echo "[!] Installing dependencies for MacOS"
-	brew install qemu i686-elf-gcc nasm zig clang-format zig
+	brew install qemu i686-elf-gcc nasm zig clang-format bear
