@@ -76,7 +76,6 @@ help:
 	@echo "  make install-mac    - Install dependencies for Mac (Brew required)"
 	@echo ""
 	@echo "Zig Toolchain (Optional):"
-	@echo "  make install-zig    - Auto-install Zig compiler based on your OS"
 	@echo "  make run* USE_ZIG=1 - Compile with Zig toolchain"
 	@echo "==============================================================="
 
@@ -169,34 +168,19 @@ clean:
 # Installation targets
 install-fedora:
 	@echo "[!] Installing dependencies for Fedora"
-	sudo dnf install gcc gcc-c++ binutils make wget tar texinfo gmp-devel mpfr-devel libmpc-devel nasm qemu-system-x86 grub2-tools-extra mtools xorriso clang-tools-extra
+	sudo dnf install gcc gcc-c++ binutils make wget tar texinfo gmp-devel mpfr-devel libmpc-devel nasm qemu-system-x86 grub2-tools-extra mtools xorriso clang-tools-extra zig
 	bash docs/install_scripts/install.sh
 
 install-arch:
 	@echo "[!] Installing dependencies for Arch Linux"
-	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 grub mtools xorriso clang
+	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 grub mtools xorriso clang zig
 	yay -S i686-elf-binutils-bin i686-elf-gcc-bin
 
 install-debian:
 	@echo "[!] Installing dependencies for Debian/Ubuntu"
-	sudo apt install gcc g++ binutils make wget tar mtools xorriso nasm qemu-system-x86 grub-pc-bin clang-format
+	sudo apt install gcc g++ binutils make wget tar mtools xorriso nasm qemu-system-x86 grub-pc-bin clang-format zig
 	bash docs/install_scripts/install.sh
 # need work
 install-mac:
 	@echo "[!] Installing dependencies for MacOS"
-	brew install qemu i686-elf-gcc nasm zig clang-format
-
-install-zig:
-	@echo "[!] Detecting OS and installing Zig..."
-	@if [ "$$(uname)" = "Darwin" ]; then \
-		brew install zig; \
-	elif [ -f /etc/arch-release ]; then \
-		sudo pacman -S --noconfirm zig; \
-	elif [ -f /etc/fedora-release ]; then \
-		sudo dnf install -y zig; \
-	elif [ -f /etc/debian_version ]; then \
-		echo "[!] Installing Zig via apt (Debian/Ubuntu)..."; \
-		sudo apt-get update && sudo apt-get install -y zig; \
-	else \
-		echo "Unsupported OS for auto-install. Please visit https://ziglang.org"; \
-	fi
+	brew install qemu i686-elf-gcc nasm zig clang-format zig
