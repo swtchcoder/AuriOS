@@ -173,7 +173,7 @@ install-fedora:
 
 install-arch:
 	@echo "[!] Installing dependencies for Arch Linux"
-	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 grub mtools xorriso clang zig
+	sudo pacman -S gcc binutils make wget tar nasm qemu-system-x86 qemu-desktop grub mtools xorriso clang zig
 	yay -S i686-elf-binutils-bin i686-elf-gcc-bin
 
 install-debian:
