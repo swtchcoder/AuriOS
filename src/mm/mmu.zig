@@ -1,6 +1,6 @@
 const std = @import("std");
 pub const c = @cImport({
-    @cInclude("../include/colors.h");
+    @cInclude("colors.h");
 });
 
 extern fn pmm_alloc_frame() usize;

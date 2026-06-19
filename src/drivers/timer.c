@@ -1,7 +1,7 @@
-#include "../include/timer.h"
-#include "../include/isr.h"
-#include "../include/io.h"
-#include "../include/log.h"
+#include "timer.h"
+#include "isr.h"
+#include "io.h"
+#include "log.h"
 #include <stdint.h>
 
 static uint32_t tick = 0;

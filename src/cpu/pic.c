@@ -1,6 +1,6 @@
-#include "../include/pic.h"
-#include "../include/io.h"
-#include "../include/log.h"
+#include "pic.h"
+#include "io.h"
+#include "log.h"
 
 #define PIC1_COMMAND 0x20
 #define PIC1_DATA    0x21

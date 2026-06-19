@@ -1,6 +1,6 @@
-#include "../include/gdt.h"
-#include "../include/log.h"
-#include "../include/memory.h"
+#include "gdt.h"
+#include "log.h"
+#include "memory.h"
 
 #define GDT_ENTRY_COUNT 6
 

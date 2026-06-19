@@ -1,6 +1,6 @@
-#include "../include/idt.h"
-#include "../include/isr.h"
-#include "../include/log.h"
+#include "idt.h"
+#include "isr.h"
+#include "log.h"
 
 #define IDT_ENTRY_COUNT 256
 

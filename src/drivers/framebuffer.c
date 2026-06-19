@@ -1,5 +1,5 @@
-#include "../include/framebuffer.h"
-#include "../include/font.h"
+#include "framebuffer.h"
+#include "font.h"
 
 static uint8_t  *fb_addr   = 0;
 static uint32_t  fb_pitch  = 0;

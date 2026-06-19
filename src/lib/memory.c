@@ -1,7 +1,7 @@
-#include "../include/memory.h"
-#include "../include/string.h"
-#include "../include/memory.h"
-#include "../include/log.h"
+#include "memory.h"
+#include "string.h"
+#include "memory.h"
+#include "log.h"
 #include <stdint.h>
 
 typedef struct block_header {

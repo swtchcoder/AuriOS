@@ -1,4 +1,4 @@
-#include "../include/string.h"
+#include "string.h"
 
 // Count char in string
 size_t strlen(const char* str) {

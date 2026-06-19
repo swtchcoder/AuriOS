@@ -1,6 +1,6 @@
-#include "../include/isr.h"
-#include "../include/idt.h"
-#include "../include/io.h"
+#include "isr.h"
+#include "idt.h"
+#include "io.h"
 
 static void (*irq_handlers[16])(registers_t *) = { 0 };
 

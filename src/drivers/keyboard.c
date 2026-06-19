@@ -1,10 +1,10 @@
-#include "../include/keyboard.h"
-#include "../include/isr.h"
-#include "../include/io.h"
-#include "../include/terminal.h"
-#include "../include/shell.h"
-#include "../include/log.h"
-#include "../include/pic.h"
+#include "keyboard.h"
+#include "isr.h"
+#include "io.h"
+#include "terminal.h"
+#include "shell.h"
+#include "log.h"
+#include "pic.h"
 
 static char scancode_to_ascii[128] = {
     0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 0,

@@ -1,5 +1,5 @@
-#include "../include/log.h"
-#include "../include/serial.h"
+#include "log.h"
+#include "serial.h"
 
 void klog(const char *level, const char *msg) {
   serial_write_char('[');

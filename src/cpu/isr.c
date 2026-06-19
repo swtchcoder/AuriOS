@@ -1,6 +1,6 @@
-#include "../include/isr.h"
-#include "../include/terminal.h"
-#include "../include/log.h"
+#include "isr.h"
+#include "terminal.h"
+#include "log.h"
 
 static const char *exception_messages[32] = {
     "Division By Zero",

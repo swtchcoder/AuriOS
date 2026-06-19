@@ -1,9 +1,9 @@
-#include "../include/terminal.h"
-#include "../include/string.h"
-#include "../include/ansi.h"
-#include "../include/io.h"
+#include "terminal.h"
+#include "string.h"
+#include "ansi.h"
+#include "io.h"
 #ifdef AURI_TEST_MODE
-      #include "../include/serial.h"
+      #include "serial.h"
 #endif
 #include <stddef.h>
 #include <stdint.h>

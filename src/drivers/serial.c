@@ -1,8 +1,8 @@
-#include "../include/serial.h"
-#include "../include/io.h"
-#include "../include/isr.h"
-#include "../include/pic.h"
-#include "../include/shell.h"
+#include "serial.h"
+#include "io.h"
+#include "isr.h"
+#include "pic.h"
+#include "shell.h"
 
 #define SERIAL_PORT 0x3F8
 

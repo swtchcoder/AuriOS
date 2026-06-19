@@ -1,5 +1,5 @@
-#include "../include/terminal.h"
-#include "../include/string.h"
+#include "terminal.h"
+#include "string.h"
 
 // Convert a String to an Integer 
 int	atoi(char *str)

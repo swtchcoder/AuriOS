@@ -1,13 +1,13 @@
-#include "../include/shell.h"
-#include "../include/colors.h"
-#include "../include/fetch.h"
-#include "../include/integer.h"
-#include "../include/log.h"
-#include "../include/memory.h"
-#include "../include/mm.h"
-#include "../include/string.h"
-#include "../include/terminal.h"
-#include "../include/timer.h"
+#include "shell.h"
+#include "colors.h"
+#include "fetch.h"
+#include "integer.h"
+#include "log.h"
+#include "memory.h"
+#include "mm.h"
+#include "string.h"
+#include "terminal.h"
+#include "timer.h"
 #define BUFFER_SIZE 256
 #define MAX_CMD_ARGS 16
 
