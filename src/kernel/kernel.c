@@ -170,20 +170,13 @@ void kernel_main(uint32_t magic, multiboot_info_t *mboot_ptr) {
   }
 
   terminal_writestring("AuriOS Kernel v0.2\n");
-  sleep(100);
   terminal_writestring("GDT initialized successfully\n");
-  sleep(50);
   terminal_writestring("PIC remapped\n");
-  sleep(30);
   terminal_writestring("IDT initialized with ISR handlers\n");
-  sleep(60);
   terminal_writestring("Memory initialized\n");
-  sleep(120);
   terminal_writestring("System ready.\n\n");
-  sleep(1000);
   terminal_clear();
   animate_logo();
-  sleep(2000);
   keyboard_init();
   terminal_clear();
   shell_init();
