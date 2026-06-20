@@ -1,85 +1,185 @@
 #include "keyboard.h"
-#include "isr.h"
 #include "io.h"
-#include "terminal.h"
-#include "shell.h"
+#include "isr.h"
 #include "log.h"
 #include "pic.h"
+#include "shell.h"
+#include "terminal.h"
 
-static char scancode_to_ascii[128] = {
-    0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 0,
-    0, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',
-    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`',
-    0, '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0,
-    '*', 0, ' '
-};
+static char scancode_to_ascii[128] = {0,
+    0,
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '0',
+    '-',
+    '=',
+    0,
+    0,
+    'q',
+    'w',
+    'e',
+    'r',
+    't',
+    'y',
+    'u',
+    'i',
+    'o',
+    'p',
+    '[',
+    ']',
+    '\n',
+    0,
+    'a',
+    's',
+    'd',
+    'f',
+    'g',
+    'h',
+    'j',
+    'k',
+    'l',
+    ';',
+    '\'',
+    '`',
+    0,
+    '\\',
+    'z',
+    'x',
+    'c',
+    'v',
+    'b',
+    'n',
+    'm',
+    ',',
+    '.',
+    '/',
+    0,
+    '*',
+    0,
+    ' '};
 
-static char scancode_to_ascii_shift[128] = {
-    0, 0, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 0,
-    0, 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n',
-    0, 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '~',
-    0, '|', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 0,
-    '*', 0, ' '
-};
+static char scancode_to_ascii_shift[128] = {0,
+    0,
+    '!',
+    '@',
+    '#',
+    '$',
+    '%',
+    '^',
+    '&',
+    '*',
+    '(',
+    ')',
+    '_',
+    '+',
+    0,
+    0,
+    'Q',
+    'W',
+    'E',
+    'R',
+    'T',
+    'Y',
+    'U',
+    'I',
+    'O',
+    'P',
+    '{',
+    '}',
+    '\n',
+    0,
+    'A',
+    'S',
+    'D',
+    'F',
+    'G',
+    'H',
+    'J',
+    'K',
+    'L',
+    ':',
+    '"',
+    '~',
+    0,
+    '|',
+    'Z',
+    'X',
+    'C',
+    'V',
+    'B',
+    'N',
+    'M',
+    '<',
+    '>',
+    '?',
+    0,
+    '*',
+    0,
+    ' '};
 
 static int shift_pressed = 0;
 static int ctrl_pressed = 0;
 
-void keyboard_callback(registers_t *regs)
-{
-    (void)regs;
-    uint8_t scancode = inb(0x60);
+void keyboard_callback(registers_t *regs) {
+  (void) regs;
+  uint8_t scancode = inb(0x60);
 
-        // Shift captured
-    if (scancode == 0x2A || scancode == 0x36) {
-        shift_pressed = 1;
-        return;
-    }
+  // Shift captured
+  if (scancode == 0x2A || scancode == 0x36) {
+    shift_pressed = 1;
+    return;
+  }
 
-    // Shift free
-    if (scancode == 0xAA || scancode == 0xB6) {
-        shift_pressed = 0;
-        return;
-    }
-    // Ctrl captured
-    if (scancode == 0x1D) {
-        ctrl_pressed = 1;
-        return;
-    }
+  // Shift free
+  if (scancode == 0xAA || scancode == 0xB6) {
+    shift_pressed = 0;
+    return;
+  }
+  // Ctrl captured
+  if (scancode == 0x1D) {
+    ctrl_pressed = 1;
+    return;
+  }
 
-    // Ctrl free
-    if (scancode == 0x9D) {
-        ctrl_pressed = 0;
-        return;
-    }
-    
-    if (scancode & 0x80)
-        return;
-    
-    // Ctrl+L
-    if (ctrl_pressed && scancode == 0x26) {
-        shell_handle_key('\f');
-        return;
-    }
+  // Ctrl free
+  if (scancode == 0x9D) {
+    ctrl_pressed = 0;
+    return;
+  }
 
-    // Backspace
-    if (scancode == 0x0E) {
-        shell_handle_key('\b');
-        return;
-    }
-    char c ;
+  if (scancode & 0x80)
+    return;
 
-    if (shift_pressed)
-        c = scancode_to_ascii_shift[scancode];
-    else
-        c = scancode_to_ascii[scancode];
-    if (c)
-        shell_handle_key(c);
+  // Ctrl+L
+  if (ctrl_pressed && scancode == 0x26) {
+    shell_handle_key('\f');
+    return;
+  }
+
+  // Backspace
+  if (scancode == 0x0E) {
+    shell_handle_key('\b');
+    return;
+  }
+  char c;
+
+  if (shift_pressed)
+    c = scancode_to_ascii_shift[scancode];
+  else
+    c = scancode_to_ascii[scancode];
+  if (c)
+    shell_handle_key(c);
 }
 
-void keyboard_init(void)
-{
-    irq_register_handler(1, keyboard_callback);
-    pic_unmask_irq(1);
-    KINFO("[KBD] PS/2 Keyboard driver active");
+void keyboard_init(void) {
+  irq_register_handler(1, keyboard_callback);
+  pic_unmask_irq(1);
+  KINFO("[KBD] PS/2 Keyboard driver active");
 }

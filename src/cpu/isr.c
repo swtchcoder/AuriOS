@@ -1,9 +1,8 @@
 #include "isr.h"
-#include "terminal.h"
 #include "log.h"
+#include "terminal.h"
 
-static const char *exception_messages[32] = {
-    "Division By Zero",
+static const char *exception_messages[32] = {"Division By Zero",
     "Debug",
     "Non Maskable Interrupt",
     "Breakpoint",
@@ -34,22 +33,20 @@ static const char *exception_messages[32] = {
     "Hypervisor Injection Exception",
     "VMM Communication Exception",
     "Security Exception",
-    "Reserved"
-};
+    "Reserved"};
 
 extern void mmu_handle_page_fault(uint32_t error_code);
 
-void isr_handler(registers_t *regs)
-{
-    if (regs->int_no < 32) {
-        terminal_writestring("EXCEPTION: ");
-        terminal_writestring(exception_messages[regs->int_no]);
-        terminal_writestring("\n");
-        if (regs->int_no == 14)
-          mmu_handle_page_fault(regs->err_code);
-        KPANIC(exception_messages[regs->int_no]);
-        for (;;) {
-          asm volatile("cli; hlt");
-        };
-    }
+void isr_handler(registers_t *regs) {
+  if (regs->int_no < 32) {
+    terminal_writestring("EXCEPTION: ");
+    terminal_writestring(exception_messages[regs->int_no]);
+    terminal_writestring("\n");
+    if (regs->int_no == 14)
+      mmu_handle_page_fault(regs->err_code);
+    KPANIC(exception_messages[regs->int_no]);
+    for (;;) {
+      asm volatile("cli; hlt");
+    };
+  }
 }

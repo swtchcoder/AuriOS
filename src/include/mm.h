@@ -1,8 +1,8 @@
 #ifndef MM_H
 #define MM_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 extern char kernel_end;
 
@@ -15,7 +15,7 @@ extern void pmm_dump_bitmap(uint32_t bytes_to_dump);
 extern void mmu_init();
 extern void mmu_enable();
 extern uint8_t mmu_is_paging_enabled(void);
-extern void mmu_map_page(uint32_t phys_addr, uint32_t virt_addr, bool is_writeable, bool is_user); 
+extern void mmu_map_page(uint32_t phys_addr, uint32_t virt_addr, bool is_writeable, bool is_user);
 
 extern void mmu_view_mappings(void);
 extern void mmu_debug_peek(uint32_t addr);
